@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 public class FileRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
+        //warn: this don't work in container cause this folder is not found
         from("file:source-folder?noop=true")
+                .log("aaa")
                 .filter(header(Exchange.FILE_NAME).startsWith("forMoving"))
                     .choice()
                         .when(body().contains("rock"))
