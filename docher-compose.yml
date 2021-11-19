@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: 'bitnami/rabbitmq:latest'
+    networks:
+      - app-tier
+
+  app:
+    container_name: boot-camel
+    image: boot-camel:0.0.1-SNAPSHOT
+    ports:
+      - 18888:8888
+    networks:
+      - app-tier
+
+networks:
+  app-tier:
+    driver: bridge
