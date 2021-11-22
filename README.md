@@ -7,7 +7,10 @@
    rabbitmq admin http://localhost:15672/ using `guest:guest`
 4. run `docker-compose up`
 
-Should able to access http://localhost:8080/user/1
+Should able to access: http://localhost:8080/user/1
+
+And there should be json documentation http://localhost:8080/api-doc
+
 
 ## Useful links:
 https://spring.io/blog/2010/06/14/understanding-amqp-the-protocol-used-by-rabbitmq

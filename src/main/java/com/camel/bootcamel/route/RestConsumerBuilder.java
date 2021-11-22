@@ -17,7 +17,10 @@ public class RestConsumerBuilder extends RouteBuilder {
                 .component("jetty")
                     .host("localhost").port(8080)
                     .bindingMode(RestBindingMode.json)
-                    .dataFormatProperty("prettyPrint","true");
+                    .dataFormatProperty("prettyPrint","true")
+        .apiContextPath("/api-doc")
+                .apiProperty("api.title", "User API").apiProperty("api.version", "v1")
+                .apiProperty("cors", "true");
 
         rest("/user").description("User rest service")
                 .consumes("application/json").produces("application/json")
