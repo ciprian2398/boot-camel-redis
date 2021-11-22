@@ -3,7 +3,11 @@ version: '2'
 services:
   rabbitmq:
     container_name: rabbitmq
-    image: 'bitnami/rabbitmq:latest'
+    hostname: rabbitmq-host
+    image: 'rabbitmq:3.8-management'
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - app-tier
 
@@ -11,7 +15,11 @@ services:
     container_name: boot-camel
     image: boot-camel:0.0.1-SNAPSHOT
     ports:
-      - 18888:8888
+      - 8080:8080
+#user:guest
+#pass:guest
+    depends_on:
+      - rabbitmq
     networks:
       - app-tier
 

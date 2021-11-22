@@ -4,7 +4,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component // works only when ran not in docker cause of missing files
 public class FileRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
