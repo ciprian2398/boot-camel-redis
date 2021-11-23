@@ -14,7 +14,7 @@ public class RestConsumerBuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         restConfiguration()
-                .component("jetty")
+                .component("netty-http")
                     .host("localhost").port(8080)
                     .bindingMode(RestBindingMode.json)
                     .dataFormatProperty("prettyPrint","true")

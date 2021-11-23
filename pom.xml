@@ -52,7 +52,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-jetty-starter</artifactId>
+            <artifactId>camel-openapi-java-starter</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-netty-http-starter</artifactId>
             <version>${camel.version}</version>
         </dependency>
         <dependency>
