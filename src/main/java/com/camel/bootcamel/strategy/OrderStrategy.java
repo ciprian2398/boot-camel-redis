@@ -1,8 +1,9 @@
 package com.camel.bootcamel.strategy;
 
+import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
 
-public class OrderStrategy implements org.apache.camel.AggregationStrategy {
+public class OrderStrategy implements AggregationStrategy {
 
     @Override
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
