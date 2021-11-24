@@ -2,9 +2,11 @@ package com.camel.bootcamel.route;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ClaimCheckOperation;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!exclusive-config")
 public class ClaimCheckIntegrationPattern extends RouteBuilder {
 
     @Override

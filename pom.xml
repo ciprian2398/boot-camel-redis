@@ -22,6 +22,31 @@
         <camel.version>3.13.0</camel.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>dev-local</id>
+            <properties>
+                <spring.profiles.active>exclusive-config</spring.profiles.active>
+                <devtools.enabled>true</devtools.enabled>
+                <rabbitmq.host>localhost</rabbitmq.host>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>docker-container</id>
+            <properties>
+                <spring.profiles.active>exclusive-config</spring.profiles.active>
+                <devtools.enabled>false</devtools.enabled>
+                <rabbitmq.host>rabbitmq-host</rabbitmq.host>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,6 +118,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 </project>

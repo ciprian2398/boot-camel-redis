@@ -2,9 +2,11 @@ package com.camel.bootcamel.route;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Component // works only when ran not in docker cause of missing files
+@Component
+@Profile("!exclusive-config")
 public class FileRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
