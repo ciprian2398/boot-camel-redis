@@ -22,16 +22,17 @@
         <camel.version>3.13.0</camel.version>
 
         <devtools.enabled>false</devtools.enabled>
-        <rabbit.route.enabled>true</rabbit.route.enabled>
         <rabbitmq.host>rabbitmq-host</rabbitmq.host>
+        <redis.host>redis-host</redis.host>
 
-        <rabbit.route.enabled>true</rabbit.route.enabled>
+        <rabbit.route.enabled>false</rabbit.route.enabled>
         <claim.route.enabled>false</claim.route.enabled>
         <composed.route.enabled>false</composed.route.enabled>
         <file.route.enabled>false</file.route.enabled>
         <http.enricher.route.enabled>false</http.enricher.route.enabled>
         <rest.route.enabled>false</rest.route.enabled>
         <dead.letter.route.enabled>false</dead.letter.route.enabled>
+        <redis.route.enabled>true</redis.route.enabled>
     </properties>
 
     <dependencies>
@@ -54,6 +55,11 @@
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-spring-rabbitmq-starter</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-spring-redis-starter</artifactId>
             <version>${camel.version}</version>
         </dependency>
 

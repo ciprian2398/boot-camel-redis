@@ -11,9 +11,18 @@ services:
     networks:
       - app-tier
 
+  redis:
+    container_name: redis
+    hostname: redis-host
+    image: 'redis:6.2.6-alpine'
+    ports:
+      - 6379:6379
+    networks:
+      - app-tier
+
   app:
     container_name: boot-camel
-    image: boot-camel:0.0.1-SNAPSHOT
+    image: 'boot-camel:0.0.1-SNAPSHOT'
     ports:
       - 8080:8080
     environment:
