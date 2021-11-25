@@ -31,6 +31,7 @@
         <file.route.enabled>false</file.route.enabled>
         <http.enricher.route.enabled>false</http.enricher.route.enabled>
         <rest.route.enabled>false</rest.route.enabled>
+        <dead.letter.route.enabled>false</dead.letter.route.enabled>
     </properties>
 
     <dependencies>
