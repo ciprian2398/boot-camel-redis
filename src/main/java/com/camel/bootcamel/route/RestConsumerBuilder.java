@@ -3,13 +3,13 @@ package com.camel.bootcamel.route;
 import com.camel.bootcamel.model.User;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import static org.apache.camel.model.rest.RestParamType.path;
 
 @Component
-@Profile("!exclusive-config")
+@ConditionalOnProperty("app.feature.rest-route-enabled")
 public class RestConsumerBuilder extends RouteBuilder {
 
     @Override

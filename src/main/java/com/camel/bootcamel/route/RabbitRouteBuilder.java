@@ -1,11 +1,11 @@
 package com.camel.bootcamel.route;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!exclusive-config")
+@ConditionalOnProperty("app.feature.rabbit-route-enabled")
 public class RabbitRouteBuilder extends RouteBuilder {
 
     @Override
