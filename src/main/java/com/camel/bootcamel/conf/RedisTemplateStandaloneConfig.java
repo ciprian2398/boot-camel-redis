@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.time.Duration;
 
@@ -16,28 +15,26 @@ public class RedisTemplateStandaloneConfig {
     @Value("${app.redis.host}")
     private String redisHost;
 
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        return template;
+    @Value("${app.redis.port}")
+    private Integer redisPort;
+
+    private JedisClientConfiguration getJedisClientConfiguration() {
+        JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfigurationBuilder = JedisClientConfiguration.builder();
+        jedisClientConfigurationBuilder.connectTimeout(Duration.ofSeconds(60));
+        jedisClientConfigurationBuilder.readTimeout(Duration.ofSeconds(1));
+        return jedisClientConfigurationBuilder.build();
     }
 
     @Bean
-    public JedisConnectionFactory jedisConnectionFactory() {
+    public JedisConnectionFactory jedisStandaloneConnectionFactory() {
+        return new JedisConnectionFactory(getRedisStandaloneConfiguration(), getJedisClientConfiguration());
+    }
 
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName(redisHost);
-        redisStandaloneConfiguration.setPort(6379);
-        redisStandaloneConfiguration.setDatabase(0);
-//        redisStandaloneConfiguration.setPassword(RedisPassword.of("password"));
-
-        JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
-        jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s connection timeout
-
-        JedisConnectionFactory jedisConFactory = new JedisConnectionFactory(redisStandaloneConfiguration, jedisClientConfiguration.build());
-        jedisClientConfiguration.readTimeout(Duration.ofSeconds(1));
-
-        return jedisConFactory;
+    private RedisStandaloneConfiguration getRedisStandaloneConfiguration() {
+        RedisStandaloneConfiguration redisStandaloneConfig = new RedisStandaloneConfiguration();
+        redisStandaloneConfig.setHostName(redisHost);
+        redisStandaloneConfig.setPort(redisPort);
+        redisStandaloneConfig.setDatabase(0);
+        return redisStandaloneConfig;
     }
 }

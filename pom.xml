@@ -24,6 +24,7 @@
         <devtools.enabled>false</devtools.enabled>
         <rabbitmq.host>rabbitmq-host</rabbitmq.host>
         <redis.host>redis-host</redis.host>
+        <redis.port>6379</redis.port>
 
         <rabbit.route.enabled>false</rabbit.route.enabled>
         <claim.route.enabled>false</claim.route.enabled>

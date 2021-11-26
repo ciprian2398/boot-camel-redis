@@ -12,6 +12,9 @@ public class RedisRouteBuilder extends RouteBuilder {
     @Value("${app.redis.host}")
     private String redisHost;
 
+    @Value("${app.redis.port}")
+    private Integer redisPort;
+
     @Override
     public void configure() throws Exception {
 
@@ -21,7 +24,7 @@ public class RedisRouteBuilder extends RouteBuilder {
                 .setHeader("CamelRedis.Key", () -> "keyOne")
                 .setHeader("CamelRedis.Value", simple("1", String.class))
                 .process(exchange -> exchange.getIn().setBody("1"))//prevents npe
-                .to("spring-redis:" + redisHost + ":6379")
+                .to("spring-redis:" + redisHost + redisPort)
                 .log("GOOOOO")
                 .to("direct:lol");
 
@@ -31,7 +34,7 @@ public class RedisRouteBuilder extends RouteBuilder {
                 .setHeader("CamelRedis.Value", simple("${body}", String.class))
                 .choice()
                 .when(exchange -> exchange.getIn().getBody(String.class).length() < 3)
-                    .to("spring-redis:" + redisHost + ":6379")
+                    .to("spring-redis:" + redisHost + redisPort)
                     .to("direct:lol")
                 .otherwise()
                     .log("finish")
