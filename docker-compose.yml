@@ -1,6 +1,7 @@
-version: '2'
+version: "3.8"
 
 services:
+
   rabbitmq:
     container_name: rabbitmq
     hostname: rabbitmq-host
@@ -8,17 +9,6 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    networks:
-      - app-tier
-
-  redis:
-    container_name: redis
-    hostname: redis-host
-    image: 'redis:6.2.6-alpine'
-    ports:
-      - 6379:6379
-    networks:
-      - app-tier
 
   app:
     container_name: boot-camel
@@ -27,13 +17,63 @@ services:
       - 8080:8080
     environment:
       - "SPRING_PROFILES_ACTIVE=mvn"
-#user:guest
-#pass:guest
+
+  redis0:
+    container_name: redis0
+    image: mnadeem/redis
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    ports:
+      - "9011:6379"
+    hostname: redis0
+    restart: always
     depends_on:
-      - rabbitmq
-    networks:
-      - app-tier
+      - redis1
+  redis1:
+    container_name: redis1
+    image: mnadeem/redis
+    ports:
+      - "9012:6379"
+    hostname: redis1
+    restart: always
+    depends_on:
+      - redis2
+  redis2:
+    container_name: redis2
+    image: mnadeem/redis
+    ports:
+      - "9013:6379"
+    hostname: redis2
+    restart: always
+    depends_on:
+      - redis3
+  redis3:
+    container_name: redis3
+    image: mnadeem/redis
+    ports:
+      - "9014:6379"
+    hostname: redis3
+    restart: always
+    depends_on:
+      - redis4
+  redis4:
+    container_name: redis4
+    image: mnadeem/redis
+    ports:
+      - "9015:6379"
+    hostname: redis4
+    restart: always
+    depends_on:
+      - redis5
+  redis5:
+    container_name: redis5
+    image: mnadeem/redis
+    ports:
+      - "9016:6379"
+    hostname: redis5
+    restart: always
 
 networks:
-  app-tier:
-    driver: bridge
+  default:
+    name: app-tier

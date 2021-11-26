@@ -1,30 +1,22 @@
 package com.camel.bootcamel.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @RedisHash("User")
 public class User implements Serializable {
 
-    private int id;
+    @Id
+    private String id;
+
     private String name;
 
     public User() {
-    }
-
-    public User(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        this.id = UUID.randomUUID().toString();
     }
 }

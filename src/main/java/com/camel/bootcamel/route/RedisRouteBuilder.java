@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+//this will probably only work in standalone mode
 @Component
 @ConditionalOnProperty("app.feature.redis-route-enabled")
 public class RedisRouteBuilder extends RouteBuilder {
@@ -24,17 +25,17 @@ public class RedisRouteBuilder extends RouteBuilder {
                 .setHeader("CamelRedis.Key", () -> "keyOne")
                 .setHeader("CamelRedis.Value", simple("1", String.class))
                 .process(exchange -> exchange.getIn().setBody("1"))//prevents npe
-                .to("spring-redis:" + redisHost + redisPort)
+                .to("spring-redis:" + redisHost + ":" + redisPort)
                 .log("GOOOOO")
                 .to("direct:lol");
 
         from("direct:lol")
                 .log("sent : ${headers} and ${body}")
-                .setHeader("CamelRedis.Command", () -> "APPEND" )
+                .setHeader("CamelRedis.Command", () -> "APPEND")
                 .setHeader("CamelRedis.Value", simple("${body}", String.class))
                 .choice()
                 .when(exchange -> exchange.getIn().getBody(String.class).length() < 3)
-                    .to("spring-redis:" + redisHost + redisPort)
+                    .to("spring-redis:" + redisHost + ":" + redisPort)
                     .to("direct:lol")
                 .otherwise()
                     .log("finish")

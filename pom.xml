@@ -23,17 +23,15 @@
 
         <devtools.enabled>false</devtools.enabled>
         <rabbitmq.host>rabbitmq-host</rabbitmq.host>
-        <redis.host>redis-host</redis.host>
-        <redis.port>6379</redis.port>
 
         <rabbit.route.enabled>false</rabbit.route.enabled>
         <claim.route.enabled>false</claim.route.enabled>
         <composed.route.enabled>false</composed.route.enabled>
         <file.route.enabled>false</file.route.enabled>
         <http.enricher.route.enabled>false</http.enricher.route.enabled>
-        <rest.route.enabled>false</rest.route.enabled>
+        <rest.route.enabled>true</rest.route.enabled>
         <dead.letter.route.enabled>false</dead.letter.route.enabled>
-        <redis.route.enabled>true</redis.route.enabled>
+        <redis.route.enabled>false</redis.route.enabled>
     </properties>
 
     <dependencies>
